@@ -1,0 +1,5 @@
+DEBUG=0
+API_URL_DEBUG="http://127.0.0.1/test/monitoring/api"
+API_URL_PROD="https://test.com/monitoring/test/api"
+PROCESS_NAME="test"
+LOG_FILE="var/log//monitoring.log"

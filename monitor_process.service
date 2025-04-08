@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitoring script for process
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/monitor_process/monitor_process.conf 
+ExecStart=/usr/local/bin/monitor_process.sh
+User=root
+Group=root
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
