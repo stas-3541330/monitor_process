@@ -5,6 +5,7 @@ Requires=monitor_process.service
 [Timer]
 OnBootSec=5min
 OnUnitActiveSec=1min
+AccuracySec=1s
 Unit=monitor_process.service
 
 [Install]

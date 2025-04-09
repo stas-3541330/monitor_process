@@ -18,10 +18,18 @@ debug_log(){
 }
 
 debug_log "Monitoring process ($PROCESS_NAME) started"
-debug_log "$RUNTIME_DIRECTORY"
 
 CURRENT_PIDS=$(pgrep -x "$PROCESS_NAME")
 CODE=$?
+if [[ $DEBUG ]]; then
+    API_URL=$API_URL_DEBUG
+    RETRY=1
+    MAX_TIME=3
+else
+    API_URL=$API_URL_PROD
+    RETRY=3
+    MAX_TIME=5
+fi
 
 if [[ $CODE -eq 0 ]]; then
     # The process may have multiple PIDs, so we will iterate through each one
@@ -59,6 +67,11 @@ if [[ $CODE -eq 0 ]]; then
     echo "$PROCESS_NAME" > $PID_FILE
     echo "$CURRENT_PIDS" >> $PID_FILE
 
+    # Send HTTP request to monitoring server
+    HTTP_STATUS=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time $MAX_TIME --retry $RETRY "$API_URL")
+    if [[ ! "$HTTP_STATUS" =~ ^2 ]]; then
+        log_message "$MSG_ERROR Cannot reach monitoring server at $API_URL"
+    fi
 else
     debug_log "Process $PROCESS_NAME is not running"
 fi
