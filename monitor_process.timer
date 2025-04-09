@@ -1,0 +1,11 @@
+[Unit]
+Description=Run monitor_process every minute
+Requires=monitor_process.service
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1min
+Unit=monitor_process.service
+
+[Install]
+WantedBy=timers.target
