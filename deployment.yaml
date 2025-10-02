@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor_process
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitor_process
+  template:
+    metadata:
+      labels:
+        app: monitor_process
+    spec:
+      containers:
+      - name: monitor
+        image: stas3541330/monitor-process:latest
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        securityContext:
+          runAsUser: 1000
+          runAsNonRoot: true
+
