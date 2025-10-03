@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monitor_process
+  name: monitor-process
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitor_process
+      app: monitor-process
   template:
     metadata:
       labels:
-        app: monitor_process
+        app: monitor-process
     spec:
       containers:
       - name: monitor

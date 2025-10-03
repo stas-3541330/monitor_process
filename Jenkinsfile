@@ -40,7 +40,7 @@ spec:
           kubectl wait --for=condition=Ready pod/test-process --timeout=30s
 
           echo "Checking monitor-process deployment..."
-          kubectl rollout status deployment/monitor_process --timeout=30s
+          kubectl rollout status deployment/monitor-process --timeout=30s
         '''
       }
     }
